@@ -4,7 +4,7 @@ Esta es una API está creada con Node.js y Express, muestra la información bás
 
 Funciones y rutas para acceder a la información
 
-nota: se pueden ejecutar las mismas funciones para los cursos de matemáticas y programación los ejemplos están basados en los cursos de programación
+nota: Esta API puede recibir solicitudes GET, POST, PUT, PATCH y DELETE. se pueden ejecutar las mismas funciones para los cursos de matemáticas y programación los ejemplos están basados en los cursos de programación
 
 --------------
 
