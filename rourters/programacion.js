@@ -8,11 +8,14 @@ const routerProgramacion = express.Router();
 routerProgramacion.use(express.json())
 
 function ordenarVistas(resultados){
-    resultados = resultados.sort((a, b) => a.vistas - b.vistas);
+    resultados = resultados.sort((a, b) => b.vistas - a.vistas);
     return resultados
 }
 
 routerProgramacion.get('/', (req, res) => {
+    if (req.query.ordenar === 'vistas') {
+        return res.send(ordenarVistas(programacion))
+    }
     res.json(programacion);
 });
 
@@ -66,7 +69,7 @@ routerProgramacion.put('/:id', (req, res) => {
     if (indice >= 0) {
         programacion[indice] = cursoActualizado;
     }else{
-        res.status(404).send(`No se pudo actualizar, porque no se encontro un curso con el id "${id}"`)
+        res.status(404).send(`No se pudo actualizar, porque no se encontró un curso con el ID "${id}"`)
     }
     res.json(programacion);
 })
@@ -83,7 +86,7 @@ routerProgramacion.patch('/:id', (req, res) => {
         //asignar a un objeto con la funcion assign solo los campos nuevos, recibe dos parametros el objeto a actualizar y otro objeto con la infomacion que quieres actualizar 
         Object.assign(cursoAModificar, infoActualizada);
     }else{
-        res.status(404).send(`No se pudo actualizar, porque no se encontro un curso con el id "${id}"`)
+        res.status(404).send(`No se pudo actualizar, porque no se encontró un curso con el ID "${id}"`)
     }
     res.json(programacion);
 
@@ -97,7 +100,7 @@ routerProgramacion.delete('/:id', (req, res) => {
     if (indice >= 0) {
         programacion.splice(indice, 1);
     }else{
-        res.status(404).send(`No se pudo eliminar, porque no se encontro un curso con el id "${id}"`)
+        res.status(404).send(`No se pudo eliminar, porque no se encontró un curso con el ID "${id}"`)
     }
     // en ves de usar res.send() que envia una respuesta en el formato que venga la informacion podemos usar res.json() que convierte cualquier dato en json sin importar lo que este enviando dentro de los ()
     res.json(programacion);

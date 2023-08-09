@@ -10,11 +10,14 @@ const routerMatematicas = express.Router();
 routerMatematicas.use(express.json())
 
 function ordenarVistas(resultados){
-    resultados = resultados.sort((a, b) => a.vistas - b.vistas);
+    resultados = resultados.sort((a, b) => b.vistas - a.vistas);
     return resultados
 }
 
 routerMatematicas.get('/', (req, res) => {
+    if (req.query.ordenar === 'vistas') {
+        return res.json(ordenarVistas(matematicas));
+    }
     res.json(matematicas);
 });
 
@@ -65,7 +68,7 @@ routerMatematicas.put('/:id', (req, res) => {
     if (indice >= 0) {
         matematicas[indice] = cursoActualizado;
     }else{
-    res.status(404).send(`No se encontro un curso con el id ${id}`)
+    res.status(404).send(`No se encontró un curso con el ID ${id}`)
     }
     res.json(matematicas)
 })
@@ -79,7 +82,7 @@ routerMatematicas.patch('/:id', (req, res) => {
     if (indice >= 0) {
         Object.assign(cursoAModificar, infoActualizada)
     }else{
-        res.status(404).send(`No se encontro un curso con el id ${id}`)
+        res.status(404).send(`No se encontró un curso con el ID ${id}`)
     }
     res.json(matematicas)
 })
@@ -91,7 +94,7 @@ routerMatematicas.delete('/:id', (req, res) => {
     if (indice >= 0) {
         matematicas.splice(indice, 1);
     }else{
-        res.status(404).send(`No se encontro un curso con el id ${id}`)
+        res.status(404).send(`No se encontró un curso con el ID ${id}`)
     }
     res.json(matematicas)
 })
